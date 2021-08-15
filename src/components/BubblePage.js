@@ -1,22 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import { axiosWithAuth } from "../helpers/axiosWithAuth";
+import axios from 'axios'
 
 import Bubbles from "./Bubbles";
 import ColorList from "./ColorList";
 import fetchColorService from '../services/fetchColorService';
 
 const BubblePage = () => {
+  const history = useHistory()
   const [colors, setColors] = useState([]);
   const [editing, setEditing] = useState(false);
+
+  useEffect(() => {
+    fetchColorService(setColors)
+  },[])
 
   const toggleEdit = (value) => {
     setEditing(value);
   };
 
   const saveEdit = (editColor) => {
+    axiosWithAuth()
+    .put(`http://localhost:5000/api/colors/${editColor.id}`, editColor)
+    .then(() => {
+      fetchColorService(setColors)
+    })
+    .catch(err => console.log('error :', err))
   };
 
   const deleteColor = (colorToDelete) => {
+    axiosWithAuth()
+    .delete(`http://localhost:5000/api/colors/${colorToDelete.id}`)
+    .then(() => {
+      fetchColorService(setColors)
+    })
+    .catch(err => console.log('error :', err))
   };
+  
 
   return (
     <div className="container">
