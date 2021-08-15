@@ -49,7 +49,7 @@ const Login = () => {
               <label>Password
                 <input id="password" name="password" type='password' onChange={handleChange} placeholder="Password"/>
               </label>
-              <button>Login</button>
+              <button id="submit">Login</button>
             </form>
           </div>
 

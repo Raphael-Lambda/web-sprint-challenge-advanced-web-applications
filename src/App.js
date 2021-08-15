@@ -1,6 +1,6 @@
 // import React, { useState } from "react";
 import { useHistory } from "react-router";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 
 import Login from "./components/Login";
 import { axiosWithAuth }  from "./helpers/axiosWithAuth";
@@ -8,7 +8,6 @@ import "./styles.scss";
 
 import BubblePage from './components/BubblePage'
 import { PrivateRoute } from "./components/PrivateRoute";
-import axios from "axios";
 
 function App() {
   const history = useHistory()
@@ -24,6 +23,7 @@ function App() {
   }
 
   return (
+    <Router>
       <div className="App">
         <header>
           Color Picker Sprint Challenge
@@ -36,6 +36,7 @@ function App() {
           <PrivateRoute component={BubblePage} path='/' />
         </Switch>
       </div>
+    </Router>
   );
 }
 
